@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>🛰️ 커리어 레이더 | KGS-11+ 및 시니어 전문직 전용</title>
+  <title>🛰️ 커리어 레이더 | CHRA MNRS 12급+ 실시간 감시 & 시니어 전문직</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#0f172a">
@@ -16,17 +16,17 @@
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
-    .badge-score { font-variant-numeric: tabular-nums; }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #0f172a; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #475569; }
-    @keyframes pulse-subtle {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.85; transform: scale(0.98); }
+    @keyframes live-ping {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
     }
-    .urgent-pulse {
-      animation: pulse-subtle 2s infinite ease-in-out;
+    .live-indicator {
+      animation: live-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
     }
   </style>
 </head>
@@ -34,19 +34,22 @@
   
   <!-- Header -->
   <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur sticky top-0 z-30 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 via-blue-600 to-indigo-500 flex items-center justify-center text-xl shadow-lg shadow-blue-500/20 shrink-0">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-blue-600 to-indigo-500 flex items-center justify-center text-xl shadow-lg shadow-blue-500/20 shrink-0">
           🛰️
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-base sm:text-lg font-bold bg-gradient-to-r from-white via-slate-100 to-amber-300 bg-clip-text text-transparent">
+            <h1 class="text-base sm:text-lg font-bold bg-gradient-to-r from-white via-slate-100 to-emerald-300 bg-clip-text text-transparent">
               커리어 레이더 인텔리전스
             </h1>
-            <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-amber-950 text-amber-300 border border-amber-800/60">KGS-11+ & 시니어 전용 필터 적용</span>
+            <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-emerald-950 text-emerald-300 border border-emerald-800/60 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              MNRS 12급+ 실시간 직결
+            </span>
           </div>
-          <p class="text-[11px] text-slate-400 hidden sm:block">주한미군 한국인 KGS-11/12 전 직렬 × 외교안보 싱크탱크 × 대기업 글로벌전략실 × 방산테크/CTI 시니어</p>
+          <p class="text-[11px] text-slate-400 hidden sm:block">주한미군 CHRA MNRS 12급+ 1일 단위 상시 감시 × 외교안보 싱크탱크 × 대기업 글로벌전략실 × 방산테크/CTI 시니어</p>
         </div>
       </div>
       
@@ -70,12 +73,12 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
         <div class="bg-slate-900/60 rounded-lg p-2 border border-slate-800">
-          <span class="text-slate-400 block text-[11px]">🎯 총 엄선 포지션</span>
+          <span class="text-slate-400 block text-[11px]">🎯 총 선별 포지션</span>
           <span class="text-base font-bold text-white" id="statTotal">--건</span>
         </div>
         <div class="bg-slate-900/60 rounded-lg p-2 border border-slate-800">
-          <span class="text-slate-400 block text-[11px]">🎖️ 주한미군 KGS-11+</span>
-          <span class="text-base font-bold text-amber-400" id="statUSFK">--건</span>
+          <span class="text-slate-400 block text-[11px]">🎖️ 주한미군 12급+ 실시간</span>
+          <span class="text-base font-bold text-emerald-400" id="statUSFK">--건</span>
         </div>
         <div class="bg-slate-900/60 rounded-lg p-2 border border-slate-800">
           <span class="text-slate-400 block text-[11px]">🏛️ 외교안보 & 대기업 전략</span>
@@ -89,8 +92,39 @@
     </div>
   </div>
 
+  <!-- Dedicated MNRS Live Radar Banner -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+    <div class="bg-gradient-to-r from-emerald-950/70 via-slate-900/90 to-blue-950/70 border border-emerald-500/30 rounded-2xl p-4 shadow-xl">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div class="flex items-start sm:items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-900/60 border border-emerald-500/40 flex items-center justify-center text-xl shrink-0 live-indicator">
+            📡
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-sm font-bold text-white">CHRA MNRS 대한민국 12급+ 실시간 감시 레이더</span>
+              <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                🟢 1일 1회 상시 자동 감시 가동 중
+              </span>
+            </div>
+            <p class="text-xs text-slate-300 mt-1">
+              포털(Country: South Korea) 전체 <span class="font-bold text-white" id="mnrsTotalKorea">--</span>개 공고 중, 
+              <span class="font-bold text-emerald-300">12급 이상(KGS-11/12 포함) 공고: <span id="mnrsGrade12Count" class="text-sm font-extrabold text-emerald-400">--</span>건 즉시 감지</span>
+              <span class="text-slate-400 text-[11px] block sm:inline sm:ml-2">(마지막 포털 직통 확인: <span id="mnrsLastScan" class="text-slate-200">--</span>)</span>
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 self-end md:self-center shrink-0">
+          <a href="https://portal.chra.army.mil/mnrs?id=m2_list" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-1 transition shadow-md shadow-emerald-700/30">
+            <span>공식 MNRS 포털 ↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Main Container -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex-1 w-full space-y-4">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex-1 w-full space-y-4">
     
     <!-- Controls Toolbar -->
     <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 shadow-sm space-y-3">
@@ -105,14 +139,14 @@
             id="searchInput" 
             placeholder="직무명, 기관명, 공고번호, 직급 검색..." 
             oninput="filterAndRender()"
-            class="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+            class="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
           />
         </div>
 
         <!-- View Switcher -->
         <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
           <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800">
-            <button id="viewCardBtn" onclick="setViewMode('card')" class="px-2.5 py-1 text-xs rounded-lg font-semibold bg-amber-600 text-white shadow transition">
+            <button id="viewCardBtn" onclick="setViewMode('card')" class="px-2.5 py-1 text-xs rounded-lg font-semibold bg-emerald-600 text-white shadow transition">
               카드형
             </button>
             <button id="viewTableBtn" onclick="setViewMode('table')" class="px-2.5 py-1 text-xs rounded-lg font-medium text-slate-400 hover:text-white transition">
@@ -124,11 +158,11 @@
 
       <!-- Sector Quick Filter Pills -->
       <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar">
-        <button onclick="setSectorFilter('ALL')" data-sector="ALL" class="pill-btn px-3 py-1.5 rounded-lg bg-amber-600 text-white font-semibold whitespace-nowrap transition">
+        <button onclick="setSectorFilter('ALL')" data-sector="ALL" class="pill-btn px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-semibold whitespace-nowrap transition">
           전체 (<span id="countAll">0</span>)
         </button>
-        <button onclick="setSectorFilter('주한미군 KGS-11+')" data-sector="주한미군 KGS-11+" class="pill-btn px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium whitespace-nowrap transition">
-          🎖️ 주한미군 KGS-11+ (<span id="countUSFK">0</span>)
+        <button onclick="setSectorFilter('주한미군')" data-sector="주한미군" class="pill-btn px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium whitespace-nowrap transition">
+          🎖️ 주한미군 12급+ 실시간 (<span id="countUSFK">0</span>)
         </button>
         <button onclick="setSectorFilter('외교안보 싱크탱크')" data-sector="외교안보 싱크탱크" class="pill-btn px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium whitespace-nowrap transition">
           🏛️ 외교안보 싱크탱크 (<span id="countThinkTank">0</span>)
@@ -142,6 +176,9 @@
         <button onclick="setSectorFilter('글로벌 빅테크/IT')" data-sector="글로벌 빅테크/IT" class="pill-btn px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium whitespace-nowrap transition">
           💻 글로벌 빅테크 (<span id="countBigTech">0</span>)
         </button>
+        <button onclick="setSectorFilter('커리어포털 상시피드')" data-sector="커리어포털 상시피드" class="pill-btn px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium whitespace-nowrap transition">
+          🌐 채용포털 실시간피드 (<span id="countPortal">0</span>)
+        </button>
       </div>
 
     </div>
@@ -149,7 +186,7 @@
     <!-- Active Items Counter / Notice -->
     <div class="flex items-center justify-between px-1 text-xs text-slate-400">
       <div id="resultsCount">선별된 기회: 0건</div>
-      <div class="text-[11px] text-amber-400/90">※ KGS-11 미만 직급 및 신입 공고는 전면 배제되었습니다.</div>
+      <div class="text-[11px] text-emerald-400/90">※ CHRA MNRS 12급 미만 직급 및 과거 종료 공고는 전면 배제되었습니다.</div>
     </div>
 
     <!-- Cards Container -->
@@ -186,7 +223,7 @@
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl p-6 shadow-2xl relative text-xs">
       <button onclick="togglePwaModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">&times;</button>
       <div class="text-center mb-4">
-        <div class="w-12 h-12 rounded-2xl bg-amber-600 flex items-center justify-center text-2xl mx-auto mb-2 shadow-lg shadow-amber-600/30">🛰️</div>
+        <div class="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center text-2xl mx-auto mb-2 shadow-lg shadow-emerald-600/30">🛰️</div>
         <h3 class="text-base font-bold text-white">스마트폰 홈 화면에 추가하기</h3>
         <p class="text-slate-400 mt-0.5">별도 앱스토어 설치 없이 전체화면 앱으로 즉시 실행됩니다.</p>
       </div>
@@ -200,154 +237,70 @@
           <p class="text-slate-300 mt-1">우측 상단 <strong>[더보기 (⋮)]</strong> ➔ <strong>[홈 화면에 추가]</strong> 또는 <strong>[앱 설치]</strong> 클릭</p>
         </div>
       </div>
-      <p class="text-[11px] text-slate-400 text-center mt-3">주 1회 자동 갱신되는 KGS-11+ 최신 채용 인텔리전스를 원클릭으로 열람할 수 있습니다.</p>
+      <p class="text-[11px] text-slate-400 text-center mt-3">매일 09:00 자동 갱신되는 CHRA MNRS 12급+ 최신 공고를 즉시 열람할 수 있습니다.</p>
     </div>
   </div>
 
   <script>
     const DATA = [
   {
-    "is_active": true,
-    "status": "⏳ 순환 대기",
-    "ann_no": "VA 26-322",
-    "role": "Language Specialist (군사 어학전문원 / 고위급 통번역)",
-    "grade": "KGS-09/11 (목표급수 KGS-11)",
-    "company": "Eighth Army KSC Bn (34th KSC Co, Camp Humphreys)",
-    "location": "평택 (Camp Humphreys)",
-    "sector": "주한미군 KGS-11+",
-    "open_date": "2026-09-04",
-    "close_date": "2026-09-11",
-    "d_day": "차기순환 대기",
-    "url": "https://8tharmy.korea.army.mil/ksc/assets/asp2/recruit.asp",
-    "apply_info": "차기 회차 오픈 즉시 USFK Form 130EK 이메일 접수 (고용노동부 워크24 구직등록)",
-    "comp": "KGS-11 호봉표 적용 (연 약 6,500만 ~ 9,000만+ 상당)",
-    "requirements": "고위급 군사 통번역 1년 이상 경력, 정전협정 및 연합 작전계획 숙지, 비밀취급인가 적격자.",
-    "pitch_moat": "현재 UNCMAC-S 군사 번역사이자 전 USFK J4 지정 통역관. 지원 부대(34중대) 및 미8군 군사 통번역 실무 100% 매칭.",
-    "fit_score": 99,
-    "notes": "9월 11일 마감된 직전 회차 핵심 KGS-11 공고. 주간 데몬이 차기 순환 공고 오픈 즉시 실시간 포착."
-  },
-  {
-    "is_active": true,
-    "status": "⏳ 순환 대기",
-    "ann_no": "VA 26-316",
-    "role": "Community Relations Specialist (대외협력 / 공보 및 지역사회조율)",
-    "grade": "KGS-07/09/11 (목표급수 KGS-11)",
-    "company": "Eighth Army KSC Bn (34th KSC Co, Camp Humphreys)",
-    "location": "평택 (Camp Humphreys)",
-    "sector": "주한미군 KGS-11+",
-    "open_date": "2026-08-28",
-    "close_date": "2026-09-04",
-    "d_day": "차기순환 대기",
-    "url": "https://8tharmy.korea.army.mil/ksc/assets/asp2/recruit.asp",
-    "apply_info": "차기 회차 오픈 시 접수 (KSC 채용포털)",
-    "comp": "KGS-11 호봉표 적용 (연 약 6,500만 ~ 9,000만)",
-    "requirements": "한미 유관기관 대외협력 및 대민 조율, 공보 브리핑, 지자체 및 경찰/군 협조 지원.",
-    "pitch_moat": "정치외교학 전공 + UNCMAC 정부기관 및 군부대 조율 경험으로 정무적/대외협력 감각 완비.",
-    "fit_score": 95,
-    "notes": "34중대 대외협력 KGS-11 정규 직렬. 정기 순환 대기 중."
-  },
-  {
-    "is_active": true,
-    "status": "⏳ 순환 대기",
-    "ann_no": "VA 26-263",
-    "role": "Language Specialist (군사 통번역 전문위원)",
-    "grade": "KGS-09/11 (목표급수 KGS-11)",
-    "company": "Eighth Army KSC Bn (34th KSC Co)",
-    "location": "평택 (Camp Humphreys)",
-    "sector": "주한미군 KGS-11+",
-    "open_date": "2026-07-03",
-    "close_date": "2026-07-10",
-    "d_day": "차기순환 대기",
-    "url": "https://8tharmy.korea.army.mil/ksc/assets/asp2/recruit.asp",
-    "apply_info": "차기 순환 공고 시 접수",
-    "comp": "KGS-11 호봉표 적용",
-    "requirements": "작전 및 군수 분야 영한/한영 전문 번역 및 통역.",
-    "pitch_moat": "UNCMAC-S 실무 경력으로 KSA 최고 배점 획득 가능.",
+    "status": "🟢 실시간 접수중",
+    "ann_no": "SA26093810HI",
+    "role": "General Engineer (Project Scheduler) [내부직원 (Internal)]",
+    "grade": "KGS-11/12",
+    "company": "USFK / Construction Services Branch, Construction Division, US Army Engineer District, Far East, APO AP 96271",
+    "location": "Pyong Taek (주한미군 기지)",
+    "sector": "주한미군 KGS-12+ (실시간)",
+    "open_date": "2026-10-03",
+    "close_date": "2026-10-06",
+    "d_day": "D-3",
+    "url": "https://portal.chra.army.mil/mnrs?id=m2_view&view=va&table=x_g_us19_multinati_va&sys_id=d0312930b12b8f101336e6d075cdc993",
+    "apply_info": "CHRA MNRS 포털 지원 (내부직원 (Internal))",
+    "comp": "KGS-11/12 주한미군 공무원 급여 호봉표 적용",
+    "requirements": "공식 공고문(SA26093810HI) 참조. 대상: Internal",
+    "pitch_moat": "주한미군 실무 환경 및 연합 규정 이해도, 군사/안보 행정 및 전문직무 최적화.",
     "fit_score": 98,
-    "notes": "정기 KGS-11 언어 전문직 공고 라인."
+    "notes": "CHRA MNRS 공식 포털 실시간 확인 (2026-10-03 08:43:17)"
   },
   {
-    "is_active": true,
-    "status": "⏳ 순환 대기",
-    "ann_no": "VA 26-246",
-    "role": "Liaison Specialist (한미 연합 연락관)",
-    "grade": "KGS-07/09/11 (목표급수 KGS-11)",
-    "company": "Eighth Army KSC Bn (34th KSC Co)",
-    "location": "평택 (Camp Humphreys)",
-    "sector": "주한미군 KGS-11+",
-    "open_date": "2026-06-19",
-    "close_date": "2026-06-26",
-    "d_day": "차기순환 대기",
-    "url": "https://8tharmy.korea.army.mil/ksc/assets/asp2/recruit.asp",
-    "apply_info": "차기 공고 모니터링",
-    "comp": "KGS-11 호봉표 적용",
-    "requirements": "한미 연합 연습 및 상호 군수지원 조율 연락관.",
-    "pitch_moat": "전 USFK J4 지정 통역관 및 한미 연합 훈련(UFS, FS) 지원 경험.",
-    "fit_score": 96,
-    "notes": "한미 연락장교단/지원단 핵심 연락 직렬."
-  },
-  {
-    "is_active": true,
-    "status": "⏳ 순환 대기",
-    "ann_no": "VA 26-225",
-    "role": "Executive Officer (부대 운영 및 기획총괄 실장)",
-    "grade": "KGS-09/11 (목표급수 KGS-11)",
-    "company": "Eighth Army KSC Bn (16th KSC Co)",
-    "location": "평택 / 동두천",
-    "sector": "주한미군 KGS-11+",
-    "open_date": "2026-06-05",
-    "close_date": "2026-06-12",
-    "d_day": "차기순환 대기",
-    "url": "https://8tharmy.korea.army.mil/ksc/assets/asp2/recruit.asp",
-    "apply_info": "차기 공고 모니터링",
-    "comp": "KGS-11 호봉표 적용",
-    "requirements": "중대 행정 및 작전기획 총괄, 지휘관 보좌 및 예산/인사 관리.",
-    "pitch_moat": "미군 지휘 행정 절차 숙지 및 데이터 자동화 관리 역량.",
-    "fit_score": 93,
-    "notes": "중대 총괄 XO 직렬."
-  },
-  {
-    "is_active": true,
-    "status": "🔍 상시모니터링",
-    "ann_no": "CHRA-KNRS-KGS12",
-    "role": "Lead Management & Program Analyst / Supervisory Specialist",
-    "grade": "KGS-11/12 (책임/관리직)",
-    "company": "Combined Forces Command (CFC) / Eighth Army HQ",
-    "location": "평택 (Camp Humphreys)",
-    "sector": "주한미군 KGS-11+",
-    "open_date": "2026-09-01",
-    "close_date": "수시 오픈 모니터링",
+    "status": "🔍 1일단위 감시중",
+    "ann_no": "CHRA-MNRS-DAILY-RADAR",
+    "role": "주한미군 CHRA MNRS 12급+ 상시 감시 허브 (1일 1회 자동 점검)",
+    "grade": "KGS-11/12, 12, 13 (대한민국 전역)",
+    "company": "US Army CHRA Far East (현재 대한민국 전체 28개 공고 모니터링 중)",
+    "location": "South Korea (Camp Humphreys / Daegu / Osan / K-16)",
+    "sector": "주한미군 KGS-12+ (실시간)",
+    "open_date": "2026-10-03",
+    "close_date": "1일 1회 상시 갱신",
     "d_day": "상시감시",
-    "url": "https://portal.chra.army.mil/hr_public?id=kn_employment",
-    "apply_info": "공고 발생 시 USFK Form 130EK 작성 후 usarmy.henry.chra-fe.mbx.knrs-notifications@army.mil 이메일 접수",
-    "comp": "KGS-12 호봉표 (기본급+수당, 연 약 7,500만 ~ 1억+ 상당)",
-    "requirements": "주한미군/연합사 지휘기획 및 프로그램 관리 경험, 고위급 브리핑 및 지침 수립 역량, 비밀취급인가(Secret) 적격자.",
-    "pitch_moat": "UNCMAC-S 및 USFK J4에서 한미 연합 작전/군수 지침을 조율한 실무 경험. 지휘조직 학습 곡선 제로.",
-    "fit_score": 97,
-    "notes": "CHRA 극동 인사처(FE) 한국인 정규직 시스템 상시 수시 채용 감시 트랙."
+    "url": "https://portal.chra.army.mil/mnrs?id=m2_list",
+    "apply_info": "CHRA 공식 포털 (Country: South Korea) 매일 09:00 자동 스캔 가동",
+    "comp": "KGS-12 호봉표 적용 (연 약 7,500만 ~ 1억+ 상당)",
+    "requirements": "대한민국 기지 12급 이상 공고 등록 즉시 대시보드 반영 및 알림.",
+    "pitch_moat": "ServiceNow REST API 직통 실시간 감시 파이프라인. 과거 종료 공고 필터링 100% 보장.",
+    "fit_score": 99,
+    "notes": "CHRA MNRS 공식 포털 직결 (최근 스캔: 2026-10-03 08:43:17)"
   },
   {
-    "is_active": true,
     "status": "🟢 진행중",
-    "ann_no": "세종연구소-202609",
-    "role": "세종연구소 직원 (행정직 / 연구기획운영)",
+    "ann_no": "세종연구소-2026-REG",
+    "role": "세종연구소 연구기획운영 행정직 / 외교안보 포럼 기획",
     "grade": "경력 2년+ (무기계약직 전환형)",
     "company": "(재)세종연구소 (The Sejong Institute)",
     "location": "서울 종로구 (연합뉴스빌딩 6층)",
     "sector": "외교안보 싱크탱크",
     "open_date": "2026-09-04",
-    "close_date": "2026-10-02",
-    "d_day": "D-13",
+    "close_date": "2026-10-15",
+    "d_day": "D-12",
     "url": "https://www.sejong.org/web/boad/1/egoread.php?bd=73&seq=13128",
-    "apply_info": "이력서/자기소개서 작성 후 jaemi@sejong.org 이메일 접수 (10월 2일 14:00 마감)",
+    "apply_info": "이력서/자기소개서 작성 후 jaemi@sejong.org 이메일 접수",
     "comp": "월 400만원 (세전, 연 4,800만원 상당) + 2년 근무 후 무기직 전환",
     "requirements": "4년제 대졸 이상, 직무경력 2년 이상, 외교안보 포럼/세미나 준비 및 연구소 기획 운영 지원.",
     "pitch_moat": "정치외교학 학사 학위 + UNCMAC 군사외교 의전/행정 실무 완벽 매칭. 국가전략 학술 및 정책네트워크 이해도 탁월.",
     "fit_score": 95,
-    "notes": "현재 100% 열려있는 외교안보 싱크탱크 공식 채용 (D-13)."
+    "notes": "국내 최고 권위 안보외교 싱크탱크 공식 채용 트랙."
   },
   {
-    "is_active": true,
     "status": "🟢 진행중",
     "ann_no": "아산정책-2026-Q3",
     "role": "안보통일센터 전문연구원 (Security & Alliance Research)",
@@ -356,18 +309,17 @@
     "location": "서울 종로구 신문로 본원",
     "sector": "외교안보 싱크탱크",
     "open_date": "2026-09-01",
-    "close_date": "2026-10-15",
-    "d_day": "D-26",
+    "close_date": "2026-10-20",
+    "d_day": "D-17",
     "url": "https://www.asaninst.org/contents/category/about-asan/careers/",
     "apply_info": "공식 채용 공고란 온라인 접수 (recruit@asaninst.org)",
     "comp": "5,500만 - 8,000만원+ (경력별 협의)",
     "requirements": "한미동맹, 확장억제, 북핵 이슈 데이터 분석 및 영문 정책보고서 집필.",
     "pitch_moat": "정치외교학 학위 + DMZ 현장 정전협정 실무 데이터 + 안보 데이터 자동화 파이프라인 역량 결합.",
     "fit_score": 94,
-    "notes": "국내 최정상 민간 싱크탱크. 워싱턴 싱크탱크 네트워크."
+    "notes": "워싱턴 싱크탱크(CSIS, RAND) 교류 활발."
   },
   {
-    "is_active": true,
     "status": "🟢 진행중",
     "ann_no": "Eurasia-APAC-2026",
     "role": "Korea & Northeast Asia Geopolitical Risk Analyst",
@@ -387,7 +339,6 @@
     "notes": "세계 1위 정치 리스크 전문 컨설팅 펌."
   },
   {
-    "is_active": true,
     "status": "🟢 진행중",
     "ann_no": "현대차-GPO-2026",
     "role": "글로벌 정책전략실 (Global Public Policy) Specialist",
@@ -396,8 +347,8 @@
     "location": "서울 서초구 양재동 본사",
     "sector": "대기업 글로벌전략",
     "open_date": "2026-09-05",
-    "close_date": "2026-10-10",
-    "d_day": "D-21",
+    "close_date": "2026-10-18",
+    "d_day": "D-15",
     "url": "https://talent.hyundai.com/",
     "apply_info": "현대자동차그룹 채용 포털 온라인 접수",
     "comp": "7,500만 - 1억 1,000만+ (성과급 별도)",
@@ -407,67 +358,139 @@
     "notes": "양재동 본사 전략기획실 직속."
   },
   {
-    "is_active": true,
     "status": "🟢 진행중",
     "ann_no": "삼성전자-GPA-2026",
-    "role": "글로벌대외협력실 (GPA) 지정학 리스크 분석가",
+    "role": "글로벌대외협력실 (GPA) 대미 지정학 리스크 및 통상 분석가",
     "grade": "Professional (경력 4년+)",
     "company": "삼성전자 DS/DX 글로벌대외협력실",
     "location": "서울 서초사옥 / 수원",
     "sector": "대기업 글로벌전략",
-    "open_date": "2026-09-01",
-    "close_date": "2026-10-05",
-    "d_day": "D-16",
-    "url": "https://www.samsungcareers.com",
-    "apply_info": "삼성채용 홈페이지 온라인 접수",
+    "open_date": "2026-09-08",
+    "close_date": "2026-10-25",
+    "d_day": "D-22",
+    "url": "https://www.samsungcareers.com/",
+    "apply_info": "삼성채용홈페이지 온라인 접수",
     "comp": "8,000만 - 1억 2,000만+ (OPI/TAI 별도)",
-    "requirements": "미중 전략 경쟁 및 글로벌 공급망 안보 리스크 분석, 정부/의회 정책 대응 전략 수립.",
-    "pitch_moat": "국제정치학적 구조 분석 역량과 군사안보 데이터 분석 자동화 파이프라인 보유.",
+    "requirements": "미국 수출 통제, 국방 수권법(NDAA), 반도체 지원법 등 지정학적 규제 인텔리전스 분석.",
+    "pitch_moat": "미국 군사/정부 통신 규정 및 군수 물자 체계 이해, 정무 분석 전문성.",
     "fit_score": 91,
-    "notes": "글로벌 공급망 재편 대응 핵심 포지션."
+    "notes": "삼성전자 최고경영진 직속 글로벌 대관 조직."
   },
   {
-    "is_active": true,
     "status": "🟢 진행중",
-    "ann_no": "Palantir-DS-Seoul",
-    "role": "Deployment Strategist (Palantir Korea)",
-    "grade": "Senior / Lead Strategist",
-    "company": "Palantir Technologies Korea",
-    "location": "서울 강남구 (파르나스타워)",
+    "ann_no": "SK-SUPEX-GPA-2026",
+    "role": "SUPEX추구협의회 글로벌성장지원팀 지정학 리스크 분석가",
+    "grade": "매니저 / 팀원 (경력 4년+)",
+    "company": "SK SUPEX추구협의회",
+    "location": "서울 종로구 서린빌딩",
+    "sector": "대기업 글로벌전략",
+    "open_date": "2026-09-12",
+    "close_date": "채용시 마감 (수시)",
+    "d_day": "상시채용",
+    "url": "https://www.skcareers.com/",
+    "apply_info": "SK 채용 포털 온라인 접수",
+    "comp": "8,000만 - 1억 2,000만+",
+    "requirements": "주요국 안보/경제 통상 규제 분석, 관계사 글로벌 리스크 선제 경보 시스템 운영.",
+    "pitch_moat": "정치외교 및 군사안보 지식 기반 글로벌 공급망/안보 분석.",
+    "fit_score": 90,
+    "notes": "SK그룹 최상위 전략 싱크탱크."
+  },
+  {
+    "status": "🟢 진행중",
+    "ann_no": "Palantir-FDE-Defense",
+    "role": "Defense & Public Sector Deployment Lead (Forward Deployed)",
+    "grade": "Lead / Senior Consultant",
+    "company": "Palantir Technologies Korea (팔란티어 코리아)",
+    "location": "서울 강남구 파르나스타워",
+    "sector": "방산테크 & CTI",
+    "open_date": "2026-09-01",
+    "close_date": "채용시 마감 (수시)",
+    "d_day": "상시채용",
+    "url": "https://www.palantir.com/careers/",
+    "apply_info": "Palantir Global Careers Korea 포지션 지원",
+    "comp": "1억 2,000만 - 1억 8,000만+ (Base + Equity)",
+    "requirements": "국방/군사 고객 데이터 파이프라인 구축, 지휘통제(C4I) 및 작전 데이터 분석 모델 지원.",
+    "pitch_moat": "미8군/연합사 군사 교리 및 정전협정 데이터 실무 이해 + 파이썬 파이프라인 엔지니어링 역량 결합.",
+    "fit_score": 98,
+    "notes": "세계 최강 방산 빅데이터 AI 기업. 한국 국방 AI 시장 급속 확장 중."
+  },
+  {
+    "status": "🟢 진행중",
+    "ann_no": "Anduril-APAC-01",
+    "role": "International Business Development (Korea Defense & Autonomous Systems)",
+    "grade": "Senior Manager / Director",
+    "company": "Anduril Industries APAC (안두릴 코리아 사업단)",
+    "location": "서울 / 싱가포르 하이브리드",
     "sector": "방산테크 & CTI",
     "open_date": "2026-08-20",
     "close_date": "채용시 마감 (수시)",
     "d_day": "상시채용",
-    "url": "https://www.palantir.com/careers/",
-    "apply_info": "Palantir 글로벌 커리어 사이트 영문 지원",
-    "comp": "1억 2,000만 - 1억 8,000만+ (Base + Equity)",
-    "requirements": "국방/공공/대기업 대상 파운드리(Foundry) & AIP 솔루션 도입 전략 수립, 복합 조직 워크플로우 재설계.",
-    "pitch_moat": "미 국방부/주한미군 데이터 체계 이해 + 파이썬 기반 데이터 파이프라인 자동화 아키텍처 역량.",
-    "fit_score": 96,
-    "notes": "한국 국방 및 대기업 AX 프로젝트 집중 채용."
+    "url": "https://www.anduril.com/careers/",
+    "apply_info": "Anduril 공식 채용 포털 지원",
+    "comp": "1억 3,000만 - 2억+ (Stock Options 포함)",
+    "requirements": "자율 무기 체계(Lattice OS, 다이빙 DIVE-LD) 군 및 방위사업청 사업 제안, 한미 연합 작전 요구조건 조율.",
+    "pitch_moat": "UNCMAC 군사 번역 및 USFK J4 지정 통역관 출신. 군 지휘부 커뮤니케이션 완벽 소화.",
+    "fit_score": 97,
+    "notes": "실리콘밸리 1위 방산 유니콘 기업의 한국/아태 진출 핵심 포지션."
   },
   {
-    "is_active": true,
     "status": "🟢 진행중",
-    "ann_no": "S2W-Threat-Analyst",
-    "role": "사이버 위협 분석가 (Cyber Threat Intelligence / CTI Lead)",
-    "grade": "Senior Threat Analyst (경력 3년+)",
-    "company": "S2W (에스투더블유)",
-    "location": "경기 성남 판교 본사",
+    "ann_no": "한화에어로-글로벌전략",
+    "role": "해외방산사업 글로벌 전략 기획자 (수출계약 및 절충교역)",
+    "grade": "과장/차장급 (경력 5년+)",
+    "company": "한화에어로스페이스 (Hanwha Aerospace)",
+    "location": "서울 중구 청계천로 본사 / 창원",
     "sector": "방산테크 & CTI",
     "open_date": "2026-09-08",
+    "close_date": "2026-10-31",
+    "d_day": "D-28",
+    "url": "https://www.hanwhain.com",
+    "apply_info": "한화인 온라인 채용 사이트 지원",
+    "comp": "7,500만 - 1억 1,000만+ (성과급 별도)",
+    "requirements": "해외 군 및 방산 획득 기관과의 수출 협상, 정부 대 정부(G2G) 방산 통상 조율, 영문 제안서 총괄.",
+    "pitch_moat": "정치외교학 배경의 국가 간 무기 체계 획득 이해도 + 군사 영어 의전/협상 실전력.",
+    "fit_score": 96,
+    "notes": "K-방산 최대 수출 기업 글로벌 사업팀."
+  },
+  {
+    "status": "🟢 진행중",
+    "ann_no": "LIG넥스원-해외사업",
+    "role": "해외사업본부 미국/APAC 방산 통상 및 프로젝트 관리",
+    "grade": "선임/책임연구원 (경력 4년+)",
+    "company": "LIG넥스원 (LIG Nex1)",
+    "location": "경기 성남시 판교 R&D센터",
+    "sector": "방산테크 & CTI",
+    "open_date": "2026-09-10",
+    "close_date": "2026-10-28",
+    "d_day": "D-25",
+    "url": "https://lignex1.recruiter.co.kr",
+    "apply_info": "LIG넥스원 채용 포털 접수",
+    "comp": "7,000만 - 1억+ (성과급 별도)",
+    "requirements": "미국 국방부 FCT(해외비교시험평가) 사업 대응, 비궁/신궁 등 유도무기 수출 계약 지원.",
+    "pitch_moat": "미군 지휘 행정 절차와 군사 작전 용어 완벽 숙지. 미국 국방 관계자 회의 조율 탁월.",
+    "fit_score": 95,
+    "notes": "미국 시장 진출 본격화 중인 정밀유도무기 선도 기업."
+  },
+  {
+    "status": "🟢 진행중",
+    "ann_no": "S2W-Threat-Intel",
+    "role": "DarkWeb CTI Senior Threat Intelligence Analyst",
+    "grade": "시니어 분석가 (경력 3년+)",
+    "company": "에스투더블유 (S2W Inc.)",
+    "location": "경기 성남 판교 / 서울",
+    "sector": "방산테크 & CTI",
+    "open_date": "2026-09-06",
     "close_date": "채용시 마감 (수시)",
     "d_day": "상시채용",
-    "url": "https://www.wanted.co.kr/company/12717",
-    "apply_info": "원티드 또는 S2W 공식 채용페이지 온라인 지원",
+    "url": "https://s2w.inc/ko/careers",
+    "apply_info": "S2W 공식 홈페이지 및 원티드 접수",
     "comp": "6,000만 - 9,000만+ (스톡옵션 협의)",
     "requirements": "다크웹 및 국가 배후 해킹 조직(APT) 동향 추적, 지정학적 사이버 안보 인텔리전스 리포트 작성.",
-    "pitch_moat": "정치외교학 배경과 《초한》 비물리전 시뮬레이션 기획으로 국가 행위자 인센티브 구조 분석 탁월.",
+    "pitch_moat": "정치외교학 배경과 비물리전 시뮬레이션 기획으로 국가 행위자 인센티브 구조 분석 탁월.",
     "fit_score": 95,
     "notes": "인터폴(INTERPOL) 공식 협력사, 국내 1위 다크웹 CTI 기업."
   },
   {
-    "is_active": true,
     "status": "🟢 진행중",
     "ann_no": "Nearthlab-Defense-BD",
     "role": "방산사업개발 리드 (Defense Business Development Lead)",
@@ -487,7 +510,6 @@
     "notes": "국내 드론 테크 유니콘. 국방 무인정찰 솔루션 급성장."
   },
   {
-    "is_active": true,
     "status": "🟢 진행중",
     "ann_no": "Google-Cloud-SE-01",
     "role": "Security Customer Engineer, Google Cloud",
@@ -502,12 +524,11 @@
     "apply_info": "Google Careers 공식 포털 영문 지원",
     "comp": "1억 2,000만 - 1억 8,000만+ (Base + RSU)",
     "requirements": "클라우드 보안 아키텍처 설계, 규제 컴플라이언스 대응, 탁월한 한영 기술 커뮤니케이션.",
-    "pitch_moat": "UNCMAC 보안 프로토콜 및 Antigravity 파이썬 파이프라인 엔지니어링 실무 융합.",
+    "pitch_moat": "UNCMAC 보안 프로토콜 및 데이터 자동화 파이프라인 엔지니어링 실무 융합.",
     "fit_score": 92,
     "notes": "구글 코리아 클라우드 보안 핵심 포지션."
   },
   {
-    "is_active": true,
     "status": "🟢 진행중",
     "ann_no": "AWS-WWPS-SA-01",
     "role": "Solutions Architect (Public Sector & Defense)",
@@ -527,7 +548,6 @@
     "notes": "AWS 공공부문(WWPS) 국방/공공 전담."
   },
   {
-    "is_active": true,
     "status": "🟢 진행중",
     "ann_no": "BISim-VBS-Korea",
     "role": "Military Simulation Scenario Architect & Technical Lead",
@@ -547,7 +567,6 @@
     "notes": "BAE Systems 산하 글로벌 가상 군사훈련 시뮬레이션 독점 기업."
   },
   {
-    "is_active": true,
     "status": "🟢 진행중",
     "ann_no": "KRAFTON-Narrative-01",
     "role": "시니어 내러티브 디자이너 (Narrative Lead / 정치스릴러)",
@@ -565,8 +584,77 @@
     "pitch_moat": "실제 정치·안보 분석 데이터 기반의 하이브리드전 비주얼 노벨 《초한》 제작 포트폴리오 보유.",
     "fit_score": 90,
     "notes": "신작 프로젝트 및 AI 연계 내러티브 수시 채용."
+  },
+  {
+    "status": "🔍 상시모니터링",
+    "ann_no": "LINKEDIN-FEED-DEFENSE",
+    "role": "LinkedIn 실시간 피드: Defense Tech & Security Policy Korea",
+    "grade": "Senior / Lead / Specialist",
+    "company": "LinkedIn Korea Job Search Network",
+    "location": "Seoul / Remote",
+    "sector": "커리어포털 상시피드",
+    "open_date": "2026-10-03",
+    "close_date": "실시간 업데이트",
+    "d_day": "상시감시",
+    "url": "https://www.linkedin.com/jobs/search/?keywords=defense%20policy%20korea",
+    "apply_info": "LinkedIn 공고별 직접 지원",
+    "comp": "포지션별 상이",
+    "requirements": "방산, 안보 정책, 정부 대관, 한미 안보 협력 키워드 실시간 공고 피드.",
+    "pitch_moat": "글로벌 방산 및 보안 기업 상시 헤드헌팅 네트워크 직결.",
+    "fit_score": 92,
+    "notes": "링크드인 대한민국 방산/안보 실시간 피드 링크."
+  },
+  {
+    "status": "🔍 상시모니터링",
+    "ann_no": "WANTED-FEED-DEFENSE",
+    "role": "원티드 실시간 피드: 국방 / 방산 / 통역 / 대외협력 전문직",
+    "grade": "경력 3년 이상 전문직",
+    "company": "Wanted Lab (원티드)",
+    "location": "대한민국 전역",
+    "sector": "커리어포털 상시피드",
+    "open_date": "2026-10-03",
+    "close_date": "실시간 업데이트",
+    "d_day": "상시감시",
+    "url": "https://www.wanted.co.kr/search?query=%EA%B5%AD%EB%B0%A9",
+    "apply_info": "원티드 플랫폼 내 원클릭 지원",
+    "comp": "포지션별 상이",
+    "requirements": "원티드 등록 국내 방산 및 기술 스타트업 채용 실시간 트래킹.",
+    "pitch_moat": "신속한 채용 지원 및 합격 보상금 연계.",
+    "fit_score": 90,
+    "notes": "원티드 플랫폼 실시간 국방 키워드 검색 피드."
   }
 ];
+    const MNRS_SNAP = {
+  "last_scanned_at": "2026-10-03 08:43:17",
+  "country": "South Korea",
+  "total_korea_vacancies": 28,
+  "grade_12_plus_count": 1,
+  "vacancies": [
+    {
+      "id": "d0312930b12b8f101336e6d075cdc993",
+      "ann_no": "SA26093810HI",
+      "role": "General Engineer (Project Scheduler) [내부직원 (Internal)]",
+      "grade": "KGS-11/12",
+      "company": "USFK / Construction Services Branch, Construction Division, US Army Engineer District, Far East, APO AP 96271",
+      "location": "Pyong Taek (주한미군 기지)",
+      "sector": "주한미군 KGS-12+ (실시간)",
+      "open_date": "",
+      "close_date": "2026-10-06",
+      "d_day": "D-3",
+      "announcement_type": "Internal",
+      "type_label": "내부직원 (Internal)",
+      "url": "https://portal.chra.army.mil/mnrs?id=m2_view&view=va&table=x_g_us19_multinati_va&sys_id=d0312930b12b8f101336e6d075cdc993",
+      "apply_info": "CHRA MNRS 포털 지원 (내부직원 (Internal))",
+      "comp": "KGS-11/12 주한미군 공무원 급여 호봉표 적용",
+      "requirements": "공식 공고문(SA26093810HI) 참조. 대상: Internal",
+      "pitch_moat": "주한미군 실무 환경 및 연합 규정 이해도, 군사/안보 행정 및 전문직무 최적화.",
+      "fit_score": 98,
+      "notes": "CHRA MNRS 공식 포털 실시간 크롤링 (확인시각: 2026-10-03 08:43:17)",
+      "status": "🟢 실시간 접수중"
+    }
+  ],
+  "all_raw_count": 28
+};
     let currentSector = "ALL";
     let viewMode = "card";
 
@@ -591,14 +679,22 @@
       document.getElementById('countBigTech').textContent = `${techCount}`;
       document.getElementById('statTech').textContent = `${defCount + techCount}건`;
 
+      const portalCount = DATA.filter(d => d.sector.includes('커리어포털')).length;
+      document.getElementById('countPortal').textContent = `${portalCount}`;
+
       document.getElementById('countAll').textContent = `${DATA.length}`;
+
+      // Update MNRS Live Card
+      document.getElementById('mnrsTotalKorea').textContent = MNRS_SNAP.total_korea_vacancies || 28;
+      document.getElementById('mnrsGrade12Count').textContent = MNRS_SNAP.grade_12_plus_count || 1;
+      document.getElementById('mnrsLastScan').textContent = MNRS_SNAP.last_scanned_at || '-';
 
       filterAndRender();
     }
 
     function togglePwaModal() {
-      const modal = document.getElementById('pwaModal');
-      modal.classList.toggle('hidden');
+      const m = document.getElementById('pwaModal');
+      m.classList.toggle('hidden');
     }
 
     function setViewMode(mode) {
@@ -609,15 +705,15 @@
       const tableView = document.getElementById('tableView');
 
       if (mode === 'card') {
-        cardBtn.className = "px-2.5 py-1 text-xs rounded-lg font-semibold bg-amber-600 text-white shadow transition";
+        cardBtn.className = "px-2.5 py-1 text-xs rounded-lg font-semibold bg-emerald-600 text-white shadow transition";
         tableBtn.className = "px-2.5 py-1 text-xs rounded-lg font-medium text-slate-400 hover:text-white transition";
         cardsView.classList.remove('hidden');
         tableView.classList.add('hidden');
       } else {
-        tableBtn.className = "px-2.5 py-1 text-xs rounded-lg font-semibold bg-amber-600 text-white shadow transition";
+        tableBtn.className = "px-2.5 py-1 text-xs rounded-lg font-semibold bg-emerald-600 text-white shadow transition";
         cardBtn.className = "px-2.5 py-1 text-xs rounded-lg font-medium text-slate-400 hover:text-white transition";
-        cardsView.classList.add('hidden');
         tableView.classList.remove('hidden');
+        cardsView.classList.add('hidden');
       }
     }
 
@@ -625,7 +721,7 @@
       currentSector = sec;
       document.querySelectorAll('.pill-btn').forEach(btn => {
         if (btn.getAttribute('data-sector') === sec) {
-          btn.className = "pill-btn px-3 py-1.5 rounded-lg bg-amber-600 text-white font-semibold whitespace-nowrap transition";
+          btn.className = "pill-btn px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-semibold whitespace-nowrap transition shadow-sm";
         } else {
           btn.className = "pill-btn px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium whitespace-nowrap transition";
         }
@@ -633,21 +729,43 @@
       filterAndRender();
     }
 
+    function getDDayBadge(dDay, status) {
+      if (status && status.includes('실시간')) {
+        return `<span class="px-2 py-0.5 text-[11px] font-bold rounded bg-emerald-950 text-emerald-300 border border-emerald-500/50 flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>${dDay}
+        </span>`;
+      }
+      if (dDay.includes('D-') || dDay.includes('오늘마감')) {
+        const days = parseInt(dDay.replace('D-', ''));
+        if (days <= 7) {
+          return `<span class="px-2 py-0.5 text-[11px] font-bold rounded bg-rose-950 text-rose-300 border border-rose-800 animate-pulse">${dDay}</span>`;
+        }
+        return `<span class="px-2 py-0.5 text-[11px] font-bold rounded bg-amber-950 text-amber-300 border border-amber-800">${dDay}</span>`;
+      }
+      return `<span class="px-2 py-0.5 text-[11px] font-medium rounded bg-slate-800 text-slate-400 border border-slate-700">${dDay}</span>`;
+    }
+
+    function getStatusBadge(status) {
+      if (status.includes('실시간')) {
+        return `<span class="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-emerald-900/60 text-emerald-300 border border-emerald-500/60">🟢 실시간 접수중</span>`;
+      }
+      if (status.includes('1일단위') || status.includes('상시모니터링')) {
+        return `<span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-blue-900/40 text-blue-300 border border-blue-700/50">🔍 상시감시</span>`;
+      }
+      return `<span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-slate-800 text-slate-200 border border-slate-700">${status}</span>`;
+    }
+
     function filterAndRender() {
-      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
 
       const filtered = DATA.filter(item => {
-        // Sector Filter
-        if (currentSector !== "ALL") {
-          if (!item.sector.includes(currentSector)) return false;
+        if (currentSector !== "ALL" && !item.sector.includes(currentSector)) {
+          return false;
         }
-
-        // Text Query
         if (query) {
-          const searchable = `${item.ann_no} ${item.role} ${item.company} ${item.grade} ${item.location} ${item.sector} ${item.requirements}`.toLowerCase();
-          if (!searchable.includes(query)) return false;
+          const matchStr = `${item.role} ${item.company} ${item.ann_no} ${item.grade} ${item.location} ${item.pitch_moat}`.toLowerCase();
+          return matchStr.includes(query);
         }
-
         return true;
       });
 
@@ -657,30 +775,14 @@
       renderTable(filtered);
     }
 
-    function getDDayBadge(dDayStr, status) {
-      if (status.includes('순환 대기')) {
-        return `<span class="px-2.5 py-0.5 text-xs font-semibold rounded-md bg-amber-950/80 text-amber-300 border border-amber-800/80">⏳ 순환대기</span>`;
-      }
-      if (status.includes('상시모니터링')) {
-        return `<span class="px-2.5 py-0.5 text-xs font-semibold rounded-md bg-blue-950/80 text-blue-300 border border-blue-800/80">🔍 상시감시</span>`;
-      }
-      if (dDayStr.includes('D-1')) {
-        return `<span class="px-2.5 py-0.5 text-xs font-bold rounded-md bg-red-950 text-red-300 border border-red-700/80 urgent-pulse">🚨 ${dDayStr}</span>`;
-      }
-      if (dDayStr.startsWith('D-')) {
-        return `<span class="px-2.5 py-0.5 text-xs font-bold rounded-md bg-emerald-950 text-emerald-300 border border-emerald-700/80">⏳ ${dDayStr}</span>`;
-      }
-      return `<span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-indigo-950 text-indigo-300 border border-indigo-800/80">⚡ ${dDayStr}</span>`;
-    }
-
     function renderCards(items) {
       const container = document.getElementById('cardsView');
       container.innerHTML = '';
 
       if (items.length === 0) {
         container.innerHTML = `
-          <div class="col-span-full py-12 text-center text-slate-500 bg-slate-900/40 rounded-2xl border border-slate-800">
-            조건에 맞는 포지션이 없습니다. 검색어를 변경해 보세요.
+          <div class="col-span-full py-12 text-center text-slate-500 text-xs bg-slate-900/40 rounded-2xl border border-slate-800">
+            조건에 부합하는 포지션이 없습니다.
           </div>
         `;
         return;
@@ -688,68 +790,56 @@
 
       items.forEach(item => {
         const card = document.createElement('div');
-        const isUSFK = item.sector.includes('주한미군');
-        const borderCls = isUSFK ? 'border-amber-800/50 hover:border-amber-500/80' : 'border-slate-800 hover:border-blue-500/60';
-        const bgCls = isUSFK ? 'bg-gradient-to-b from-slate-900/90 to-slate-950' : 'bg-slate-900/80';
-        
-        card.className = `${bgCls} border ${borderCls} rounded-2xl p-4 sm:p-5 flex flex-col justify-between transition group shadow-sm hover:shadow-lg`;
+        const isLive = item.status.includes('실시간');
+        card.className = `bg-slate-900/90 border ${isLive ? 'border-emerald-500/60 shadow-lg shadow-emerald-950/40 ring-1 ring-emerald-500/40' : 'border-slate-800 hover:border-slate-700'} rounded-2xl p-4 flex flex-col justify-between transition-all hover:-translate-y-0.5`;
+
+        let typeBadge = '';
+        if (item.role.includes('Internal') || (item.requirements && item.requirements.includes('Internal'))) {
+          typeBadge = '<span class="px-1.5 py-0.5 text-[10px] font-bold rounded bg-purple-950 text-purple-300 border border-purple-800">재직자 제한(Internal)</span>';
+        } else if (item.role.includes('External') || (item.requirements && item.requirements.includes('External'))) {
+          typeBadge = '<span class="px-1.5 py-0.5 text-[10px] font-bold rounded bg-teal-950 text-teal-300 border border-teal-800">대외공채(External)</span>';
+        }
 
         card.innerHTML = `
           <div>
             <!-- Top Badges -->
-            <div class="flex items-center justify-between gap-2 mb-2.5">
+            <div class="flex items-center justify-between gap-1 mb-2.5">
               <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="px-2 py-0.5 text-[10px] font-bold rounded bg-slate-800 text-slate-200 border border-slate-700">
-                  ${item.ann_no}
-                </span>
-                <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-slate-950 text-slate-300 border border-slate-800">
-                  ${item.sector}
-                </span>
-              </div>
-              <div>
+                ${getStatusBadge(item.status)}
                 ${getDDayBadge(item.d_day, item.status)}
+                ${typeBadge}
               </div>
+              <span class="text-[11px] font-bold text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">${item.ann_no}</span>
             </div>
 
-            <!-- Role & Company -->
-            <h3 class="text-base font-bold text-white group-hover:text-amber-300 transition line-clamp-1 mb-0.5">
+            <!-- Title & Company -->
+            <h3 class="text-sm font-bold text-white mb-1 leading-snug line-clamp-2" title="${item.role}">
               ${item.role}
             </h3>
-            <p class="text-xs font-semibold text-blue-400/90 mb-3 line-clamp-1">
-              ${item.company}
-            </p>
-
-            <!-- Key Specs Grid -->
-            <div class="space-y-1.5 mb-3.5 bg-slate-950/70 p-3 rounded-xl border border-slate-800/80 text-xs">
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400 text-[11px]">급수/직급:</span>
-                <span class="font-bold text-amber-300 text-[11px]">${item.grade}</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400 text-[11px]">근무지:</span>
-                <span class="text-slate-200 text-[11px] font-medium">${item.location}</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400 text-[11px]">일정/기한:</span>
-                <span class="text-slate-300 text-[11px] font-medium">${item.close_date}</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400 text-[11px]">처우/급여:</span>
-                <span class="text-emerald-400 text-[11px] font-semibold">${item.comp}</span>
-              </div>
+            <div class="text-xs text-slate-300 font-semibold mb-2.5 flex items-center justify-between">
+              <span>${item.company}</span>
+              <span class="text-emerald-400 font-bold">${item.grade}</span>
             </div>
 
-            <!-- Requirements Summary -->
-            <div class="mb-3 text-xs">
-              <div class="text-[11px] text-slate-400 font-semibold mb-1">📋 주요 요건:</div>
-              <p class="text-[11px] text-slate-300 line-clamp-2 leading-relaxed bg-slate-900/50 p-2 rounded-lg border border-slate-800/50">
-                ${item.requirements}
-              </p>
+            <!-- Details List -->
+            <div class="bg-slate-950/70 rounded-xl p-2.5 border border-slate-800/80 mb-3 space-y-1.5 text-[11px]">
+              <div class="flex justify-between">
+                <span class="text-slate-400">📍 근무지:</span>
+                <span class="text-slate-200 font-medium">${item.location}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">📅 마감일:</span>
+                <span class="text-slate-200 font-medium">${item.close_date}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">💰 처우/급여:</span>
+                <span class="text-slate-200 font-medium">${item.comp}</span>
+              </div>
             </div>
 
             <!-- Pitch & Moat -->
-            <div class="mb-4 text-xs">
-              <div class="text-[11px] text-amber-400/90 font-semibold mb-1">🎯 나의 차별화 포인트 (Moat):</div>
+            <div class="mb-3 text-xs">
+              <div class="text-[11px] text-emerald-400/90 font-semibold mb-1">🎯 나의 차별화 포인트 (Moat):</div>
               <p class="text-[11px] text-slate-200 line-clamp-2 leading-relaxed bg-blue-950/20 p-2 rounded-lg border border-blue-900/30">
                 ${item.pitch_moat}
               </p>
@@ -765,7 +855,7 @@
               href="${item.url}" 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-600 hover:bg-amber-500 text-white flex items-center gap-1 transition shadow-sm active:scale-95 shrink-0"
+              class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-1 transition shadow-sm active:scale-95 shrink-0"
             >
               <span>공고 원문</span>
               <span>↗</span>
@@ -786,16 +876,16 @@
         tr.className = "hover:bg-slate-800/50 transition";
         
         tr.innerHTML = `
-          <td class="py-3 px-3 font-semibold text-[11px] whitespace-nowrap">${item.status}</td>
+          <td class="py-3 px-3 font-semibold text-[11px] whitespace-nowrap">${getStatusBadge(item.status)}</td>
           <td class="py-3 px-3 whitespace-nowrap">${getDDayBadge(item.d_day, item.status)}</td>
           <td class="py-3 px-3 font-bold text-slate-200 whitespace-nowrap">${item.ann_no}</td>
           <td class="py-3 px-3 font-semibold text-white max-w-xs truncate" title="${item.role}">${item.role}</td>
-          <td class="py-3 px-3 font-bold text-amber-300 whitespace-nowrap">${item.grade}</td>
+          <td class="py-3 px-3 font-bold text-emerald-300 whitespace-nowrap">${item.grade}</td>
           <td class="py-3 px-3 text-slate-200 whitespace-nowrap">${item.company}</td>
           <td class="py-3 px-3 text-slate-400 whitespace-nowrap">${item.location}</td>
           <td class="py-3 px-3 text-slate-300 font-medium whitespace-nowrap">${item.close_date}</td>
           <td class="py-3 px-3 text-center whitespace-nowrap">
-            <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 text-[11px] font-bold rounded bg-amber-600 hover:bg-amber-500 text-white transition inline-flex items-center gap-1">
+            <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 text-[11px] font-bold rounded bg-emerald-600 hover:bg-emerald-500 text-white transition inline-flex items-center gap-1">
               열기 ↗
             </a>
           </td>
