@@ -2,19 +2,39 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>🛰️ 커리어 레이더 | CHRA MNRS 12급+ 실시간 감시 & 시니어 전문직</title>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#0f172a">
+  
+  <!-- iPhone Safari Web App (PWA) Standalone Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="커리어레이더" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="apple-touch-icon" href="https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/radar/default/48px.svg" />
+  <link rel="icon" type="image/svg+xml" href="https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/radar/default/24px.svg" />
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  
   <style>
+    :root {
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+      --sal: env(safe-area-inset-left, 0px);
+      --sar: env(safe-area-inset-right, 0px);
+    }
     body { 
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
+      -webkit-text-size-adjust: 100%;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      padding-top: var(--sat);
+      padding-bottom: max(var(--sab), 20px);
+      padding-left: var(--sal);
+      padding-right: var(--sar);
     }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #0f172a; }
@@ -28,19 +48,21 @@
     .live-indicator {
       animation: live-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
     }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
   
-  <!-- Header -->
-  <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur sticky top-0 z-30 shadow-md">
+  <!-- Header with Safe Area -->
+  <header class="border-b border-slate-800/80 bg-slate-900/95 backdrop-blur-md sticky top-0 z-30 shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div class="flex items-center space-x-3">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-blue-600 to-indigo-500 flex items-center justify-center text-xl shadow-lg shadow-blue-500/20 shrink-0">
           🛰️
         </div>
         <div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 flex-wrap">
             <h1 class="text-base sm:text-lg font-bold bg-gradient-to-r from-white via-slate-100 to-emerald-300 bg-clip-text text-transparent">
               커리어 레이더 인텔리전스
             </h1>
@@ -49,42 +71,42 @@
               MNRS 12급+ 실시간 직결
             </span>
           </div>
-          <p class="text-[11px] text-slate-400 hidden sm:block">주한미군 CHRA MNRS 12급+ 1일 단위 상시 감시 × 외교안보 싱크탱크 × 대기업 글로벌전략실 × 방산테크/CTI 시니어</p>
+          <p class="text-[11px] text-slate-400">주한미군 CHRA MNRS 12급+ 1일 자동감시 × 외교안보 싱크탱크 × 대기업 전략실 × 방산테크 시니어</p>
         </div>
       </div>
       
       <!-- Action Buttons -->
-      <div class="flex items-center space-x-2">
-        <a href="Career_Opportunity_Master.xlsx" download="Career_Opportunity_Master.xlsx" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white flex items-center gap-1.5 transition shadow-sm active:scale-95">
+      <div class="flex items-center space-x-2 self-end md:self-center">
+        <a href="Career_Opportunity_Master.xlsx" download="Career_Opportunity_Master.xlsx" class="px-3 py-2 text-xs font-semibold rounded-xl bg-emerald-700 hover:bg-emerald-600 active:scale-95 text-white flex items-center gap-1.5 transition shadow-sm">
           📥 <span>엑셀 (.xlsx)</span>
         </a>
-        <a href="Career_Opportunity_Master.csv" download="Career_Opportunity_Master.csv" class="px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-1 transition">
+        <a href="Career_Opportunity_Master.csv" download="Career_Opportunity_Master.csv" class="px-2.5 py-2 text-xs font-medium rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-1 transition">
           📋 <span>CSV</span>
         </a>
-        <button onclick="togglePwaModal()" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-500 text-white flex items-center gap-1 transition shadow-md shadow-blue-600/30 active:scale-95">
-          📲 <span>앱으로 보기</span>
+        <button onclick="togglePwaModal()" class="px-3 py-2 text-xs font-semibold rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-95 text-white flex items-center gap-1 transition shadow-md shadow-blue-600/30">
+          📲 <span>앱 안내</span>
         </button>
       </div>
     </div>
   </header>
 
   <!-- Metric Strip -->
-  <div class="bg-slate-900/40 border-b border-slate-800/50">
+  <div class="bg-slate-900/50 border-b border-slate-800/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
-        <div class="bg-slate-900/60 rounded-lg p-2 border border-slate-800">
+        <div class="bg-slate-900/80 rounded-xl p-2.5 border border-slate-800/80 shadow-sm">
           <span class="text-slate-400 block text-[11px]">🎯 총 선별 포지션</span>
           <span class="text-base font-bold text-white" id="statTotal">--건</span>
         </div>
-        <div class="bg-slate-900/60 rounded-lg p-2 border border-slate-800">
+        <div class="bg-slate-900/80 rounded-xl p-2.5 border border-slate-800/80 shadow-sm">
           <span class="text-slate-400 block text-[11px]">🎖️ 주한미군 12급+ 실시간</span>
           <span class="text-base font-bold text-emerald-400" id="statUSFK">--건</span>
         </div>
-        <div class="bg-slate-900/60 rounded-lg p-2 border border-slate-800">
+        <div class="bg-slate-900/80 rounded-xl p-2.5 border border-slate-800/80 shadow-sm">
           <span class="text-slate-400 block text-[11px]">🏛️ 외교안보 & 대기업 전략</span>
           <span class="text-base font-bold text-blue-400" id="statPolicy">--건</span>
         </div>
-        <div class="bg-slate-900/60 rounded-lg p-2 border border-slate-800">
+        <div class="bg-slate-900/80 rounded-xl p-2.5 border border-slate-800/80 shadow-sm">
           <span class="text-slate-400 block text-[11px]">🛡️ 방산테크 & 빅테크 시니어</span>
           <span class="text-base font-bold text-indigo-400" id="statTech">--건</span>
         </div>
@@ -93,7 +115,7 @@
   </div>
 
   <!-- Dedicated MNRS Live Radar Banner -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 w-full">
     <div class="bg-gradient-to-r from-emerald-950/70 via-slate-900/90 to-blue-950/70 border border-emerald-500/30 rounded-2xl p-4 shadow-xl">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div class="flex items-start sm:items-center space-x-3">
@@ -107,15 +129,15 @@
                 🟢 1일 1회 상시 자동 감시 가동 중
               </span>
             </div>
-            <p class="text-xs text-slate-300 mt-1">
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed">
               포털(Country: South Korea) 전체 <span class="font-bold text-white" id="mnrsTotalKorea">--</span>개 공고 중, 
-              <span class="font-bold text-emerald-300">12급 이상(KGS-11/12 포함) 공고: <span id="mnrsGrade12Count" class="text-sm font-extrabold text-emerald-400">--</span>건 즉시 감지</span>
-              <span class="text-slate-400 text-[11px] block sm:inline sm:ml-2">(마지막 포털 직통 확인: <span id="mnrsLastScan" class="text-slate-200">--</span>)</span>
+              <span class="font-bold text-emerald-300">12급 이상(KGS-11/12 포함) 공고: <span id="mnrsGrade12Count" class="text-sm font-extrabold text-emerald-400">--</span>건 실시간 감지</span>
+              <span class="text-slate-400 text-[11px] block sm:inline sm:ml-2">(마지막 포털 직통 확인: <span id="mnrsLastScan" class="text-slate-200 font-medium">--</span>)</span>
             </p>
           </div>
         </div>
-        <div class="flex items-center gap-2 self-end md:self-center shrink-0">
-          <a href="https://portal.chra.army.mil/mnrs?id=m2_list" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-1 transition shadow-md shadow-emerald-700/30">
+        <div class="flex items-center gap-2 self-stretch sm:self-end md:self-center shrink-0">
+          <a href="https://portal.chra.army.mil/mnrs?id=m2_list" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto text-center px-3.5 py-2 text-xs font-semibold rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white flex items-center justify-center gap-1 transition shadow-md shadow-emerald-700/30">
             <span>공식 MNRS 포털 ↗</span>
           </a>
         </div>
@@ -129,11 +151,11 @@
     <!-- Controls Toolbar -->
     <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 shadow-sm space-y-3">
       
-      <!-- Top Row: Search & Status Toggle -->
+      <!-- Top Row: Search & View Switcher -->
       <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
         <!-- Live Search -->
         <div class="relative w-full sm:w-80">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500">🔍</span>
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500">🔍</span>
           <input 
             type="text" 
             id="searchInput" 
@@ -146,10 +168,10 @@
         <!-- View Switcher -->
         <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
           <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800">
-            <button id="viewCardBtn" onclick="setViewMode('card')" class="px-2.5 py-1 text-xs rounded-lg font-semibold bg-emerald-600 text-white shadow transition">
+            <button id="viewCardBtn" onclick="setViewMode('card')" class="px-3 py-1.5 text-xs rounded-lg font-semibold bg-emerald-600 text-white shadow transition">
               카드형
             </button>
-            <button id="viewTableBtn" onclick="setViewMode('table')" class="px-2.5 py-1 text-xs rounded-lg font-medium text-slate-400 hover:text-white transition">
+            <button id="viewTableBtn" onclick="setViewMode('table')" class="px-3 py-1.5 text-xs rounded-lg font-medium text-slate-400 hover:text-white transition">
               표(테이블)
             </button>
           </div>
@@ -186,10 +208,10 @@
     <!-- Active Items Counter / Notice -->
     <div class="flex items-center justify-between px-1 text-xs text-slate-400">
       <div id="resultsCount">선별된 기회: 0건</div>
-      <div class="text-[11px] text-emerald-400/90">※ CHRA MNRS 12급 미만 직급 및 과거 종료 공고는 전면 배제되었습니다.</div>
+      <div class="text-[11px] text-emerald-400/90 font-medium">※ CHRA MNRS 12급 미만 직급 및 과거 종료 공고는 전면 배제되었습니다.</div>
     </div>
 
-    <!-- Cards Container -->
+    <!-- Cards Container (Zero Truncation / Full Mobile Visibility) -->
     <div id="cardsView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <!-- Dynamic Injection -->
     </div>
@@ -202,9 +224,9 @@
             <th class="py-3 px-3">상태</th>
             <th class="py-3 px-3">D-Day</th>
             <th class="py-3 px-3">공고번호</th>
-            <th class="py-3 px-3">직무명</th>
+            <th class="py-3 px-3 min-w-[200px]">직무명</th>
             <th class="py-3 px-3">급수/직급</th>
-            <th class="py-3 px-3">기관/기업명</th>
+            <th class="py-3 px-3 min-w-[150px]">기관/기업명</th>
             <th class="py-3 px-3">근무지</th>
             <th class="py-3 px-3">마감일</th>
             <th class="py-3 px-3 text-center">원문 링크</th>
@@ -224,20 +246,20 @@
       <button onclick="togglePwaModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">&times;</button>
       <div class="text-center mb-4">
         <div class="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center text-2xl mx-auto mb-2 shadow-lg shadow-emerald-600/30">🛰️</div>
-        <h3 class="text-base font-bold text-white">스마트폰 홈 화면에 추가하기</h3>
-        <p class="text-slate-400 mt-0.5">별도 앱스토어 설치 없이 전체화면 앱으로 즉시 실행됩니다.</p>
+        <h3 class="text-base font-bold text-white">아이폰 Safari 홈 화면에 앱으로 추가하기</h3>
+        <p class="text-slate-400 mt-0.5 leading-relaxed">별도 앱스토어 설치 없이 전체화면 독립 앱으로 실행됩니다.</p>
       </div>
       <div class="space-y-3 bg-slate-950/70 p-4 rounded-xl border border-slate-800">
         <div>
           <span class="font-bold text-amber-400">🍎 아이폰 (Safari):</span>
-          <p class="text-slate-300 mt-1">하단 중앙 <strong>[공유] 아이콘</strong> ➔ <strong>[홈 화면에 추가]</strong> 클릭</p>
+          <p class="text-slate-300 mt-1">Safari 하단 중앙 <strong>[공유] 아이콘(네모 위 화살표)</strong> ➔ 스크롤 후 <strong>[홈 화면에 추가]</strong> 클릭</p>
         </div>
         <div class="pt-2 border-t border-slate-800">
           <span class="font-bold text-emerald-400">🤖 안드로이드 (Chrome):</span>
           <p class="text-slate-300 mt-1">우측 상단 <strong>[더보기 (⋮)]</strong> ➔ <strong>[홈 화면에 추가]</strong> 또는 <strong>[앱 설치]</strong> 클릭</p>
         </div>
       </div>
-      <p class="text-[11px] text-slate-400 text-center mt-3">매일 09:00 자동 갱신되는 CHRA MNRS 12급+ 최신 공고를 즉시 열람할 수 있습니다.</p>
+      <p class="text-[11px] text-slate-400 text-center mt-3">매일 09:00 자동 갱신되는 CHRA MNRS 12급+ 최신 공고를 아이폰 바탕화면에서 즉시 열람할 수 있습니다.</p>
     </div>
   </div>
 
@@ -260,7 +282,7 @@
     "requirements": "공식 공고문(SA26093810HI) 참조. 대상: Internal",
     "pitch_moat": "주한미군 실무 환경 및 연합 규정 이해도, 군사/안보 행정 및 전문직무 최적화.",
     "fit_score": 98,
-    "notes": "CHRA MNRS 공식 포털 실시간 확인 (2026-10-03 09:00:12)"
+    "notes": "CHRA MNRS 공식 포털 실시간 확인 (2026-10-03 12:30:57)"
   },
   {
     "status": "🔍 1일단위 감시중",
@@ -279,7 +301,7 @@
     "requirements": "대한민국 기지 12급 이상 공고 등록 즉시 대시보드 반영 및 알림.",
     "pitch_moat": "ServiceNow REST API 직통 실시간 감시 파이프라인. 과거 종료 공고 필터링 100% 보장.",
     "fit_score": 99,
-    "notes": "CHRA MNRS 공식 포털 직결 (최근 스캔: 2026-10-03 09:00:12)"
+    "notes": "CHRA MNRS 공식 포털 직결 (최근 스캔: 2026-10-03 12:30:57)"
   },
   {
     "status": "🟢 진행중",
@@ -625,7 +647,7 @@
   }
 ];
     const MNRS_SNAP = {
-  "last_scanned_at": "2026-10-03 09:00:12",
+  "last_scanned_at": "2026-10-03 12:30:57",
   "country": "South Korea",
   "total_korea_vacancies": 28,
   "grade_12_plus_count": 1,
@@ -649,7 +671,7 @@
       "requirements": "공식 공고문(SA26093810HI) 참조. 대상: Internal",
       "pitch_moat": "주한미군 실무 환경 및 연합 규정 이해도, 군사/안보 행정 및 전문직무 최적화.",
       "fit_score": 98,
-      "notes": "CHRA MNRS 공식 포털 실시간 크롤링 (확인시각: 2026-10-03 09:00:12)",
+      "notes": "CHRA MNRS 공식 포털 실시간 크롤링 (확인시각: 2026-10-03 12:30:57)",
       "status": "🟢 실시간 접수중"
     }
   ],
@@ -705,13 +727,13 @@
       const tableView = document.getElementById('tableView');
 
       if (mode === 'card') {
-        cardBtn.className = "px-2.5 py-1 text-xs rounded-lg font-semibold bg-emerald-600 text-white shadow transition";
-        tableBtn.className = "px-2.5 py-1 text-xs rounded-lg font-medium text-slate-400 hover:text-white transition";
+        cardBtn.className = "px-3 py-1.5 text-xs rounded-lg font-semibold bg-emerald-600 text-white shadow transition";
+        tableBtn.className = "px-3 py-1.5 text-xs rounded-lg font-medium text-slate-400 hover:text-white transition";
         cardsView.classList.remove('hidden');
         tableView.classList.add('hidden');
       } else {
-        tableBtn.className = "px-2.5 py-1 text-xs rounded-lg font-semibold bg-emerald-600 text-white shadow transition";
-        cardBtn.className = "px-2.5 py-1 text-xs rounded-lg font-medium text-slate-400 hover:text-white transition";
+        tableBtn.className = "px-3 py-1.5 text-xs rounded-lg font-semibold bg-emerald-600 text-white shadow transition";
+        cardBtn.className = "px-3 py-1.5 text-xs rounded-lg font-medium text-slate-400 hover:text-white transition";
         tableView.classList.remove('hidden');
         cardsView.classList.add('hidden');
       }
@@ -763,7 +785,7 @@
           return false;
         }
         if (query) {
-          const matchStr = `${item.role} ${item.company} ${item.ann_no} ${item.grade} ${item.location} ${item.pitch_moat}`.toLowerCase();
+          const matchStr = `${item.role} ${item.company} ${item.ann_no} ${item.grade} ${item.location} ${item.pitch_moat} ${item.requirements}`.toLowerCase();
           return matchStr.includes(query);
         }
         return true;
@@ -791,73 +813,83 @@
       items.forEach(item => {
         const card = document.createElement('div');
         const isLive = item.status.includes('실시간');
-        card.className = `bg-slate-900/90 border ${isLive ? 'border-emerald-500/60 shadow-lg shadow-emerald-950/40 ring-1 ring-emerald-500/40' : 'border-slate-800 hover:border-slate-700'} rounded-2xl p-4 flex flex-col justify-between transition-all hover:-translate-y-0.5`;
+        card.className = `bg-slate-900/90 border ${isLive ? 'border-emerald-500/70 shadow-lg shadow-emerald-950/40 ring-1 ring-emerald-500/50' : 'border-slate-800 hover:border-slate-700'} rounded-2xl p-4 sm:p-5 flex flex-col justify-between transition-all hover:-translate-y-0.5 shadow-sm`;
 
         let typeBadge = '';
         if (item.role.includes('Internal') || (item.requirements && item.requirements.includes('Internal'))) {
-          typeBadge = '<span class="px-1.5 py-0.5 text-[10px] font-bold rounded bg-purple-950 text-purple-300 border border-purple-800">재직자 제한(Internal)</span>';
+          typeBadge = '<span class="px-2 py-0.5 text-[10px] font-bold rounded bg-purple-950 text-purple-300 border border-purple-800">재직자 제한(Internal)</span>';
         } else if (item.role.includes('External') || (item.requirements && item.requirements.includes('External'))) {
-          typeBadge = '<span class="px-1.5 py-0.5 text-[10px] font-bold rounded bg-teal-950 text-teal-300 border border-teal-800">대외공채(External)</span>';
+          typeBadge = '<span class="px-2 py-0.5 text-[10px] font-bold rounded bg-teal-950 text-teal-300 border border-teal-800">대외공채(External)</span>';
         }
 
+        // Render card with ZERO line-clamps and full requirements
         card.innerHTML = `
           <div>
             <!-- Top Badges -->
-            <div class="flex items-center justify-between gap-1 mb-2.5">
+            <div class="flex items-center justify-between gap-1 mb-3">
               <div class="flex items-center gap-1.5 flex-wrap">
                 ${getStatusBadge(item.status)}
                 ${getDDayBadge(item.d_day, item.status)}
                 ${typeBadge}
               </div>
-              <span class="text-[11px] font-bold text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">${item.ann_no}</span>
+              <span class="text-[11px] font-bold text-slate-300 bg-slate-950 px-2 py-0.5 rounded border border-slate-800 shrink-0">${item.ann_no}</span>
             </div>
 
-            <!-- Title & Company -->
-            <h3 class="text-sm font-bold text-white mb-1 leading-snug line-clamp-2" title="${item.role}">
+            <!-- Title & Company (NO LINE CLAMP: FULL TEXT DISPLAY) -->
+            <h3 class="text-sm sm:text-base font-bold text-white mb-2 leading-snug break-words">
               ${item.role}
             </h3>
-            <div class="text-xs text-slate-300 font-semibold mb-2.5 flex items-center justify-between">
-              <span>${item.company}</span>
-              <span class="text-emerald-400 font-bold">${item.grade}</span>
+            
+            <div class="text-xs text-slate-300 font-semibold mb-3 flex flex-wrap items-center justify-between gap-1.5 border-b border-slate-800/60 pb-2.5">
+              <span class="text-slate-200">${item.company}</span>
+              <span class="text-emerald-400 font-bold bg-slate-950 px-2 py-0.5 rounded border border-slate-800 shrink-0">${item.grade}</span>
             </div>
 
-            <!-- Details List -->
-            <div class="bg-slate-950/70 rounded-xl p-2.5 border border-slate-800/80 mb-3 space-y-1.5 text-[11px]">
-              <div class="flex justify-between">
-                <span class="text-slate-400">📍 근무지:</span>
-                <span class="text-slate-200 font-medium">${item.location}</span>
+            <!-- Key Info Box -->
+            <div class="bg-slate-950/70 rounded-xl p-3 border border-slate-800/80 mb-3 space-y-1.5 text-xs">
+              <div class="flex justify-between items-center gap-2">
+                <span class="text-slate-400 shrink-0">📍 근무지:</span>
+                <span class="text-slate-200 font-medium text-right">${item.location}</span>
               </div>
-              <div class="flex justify-between">
-                <span class="text-slate-400">📅 마감일:</span>
-                <span class="text-slate-200 font-medium">${item.close_date}</span>
+              <div class="flex justify-between items-center gap-2">
+                <span class="text-slate-400 shrink-0">📅 마감일:</span>
+                <span class="text-slate-200 font-medium text-right">${item.close_date}</span>
               </div>
-              <div class="flex justify-between">
-                <span class="text-slate-400">💰 처우/급여:</span>
-                <span class="text-slate-200 font-medium">${item.comp}</span>
+              <div class="flex justify-between items-center gap-2">
+                <span class="text-slate-400 shrink-0">💰 처우/급여:</span>
+                <span class="text-slate-200 font-medium text-right">${item.comp}</span>
               </div>
             </div>
 
-            <!-- Pitch & Moat -->
+            <!-- Key Requirements & Job Summary (FULL TEXT DISPLAY) -->
             <div class="mb-3 text-xs">
-              <div class="text-[11px] text-emerald-400/90 font-semibold mb-1">🎯 나의 차별화 포인트 (Moat):</div>
-              <p class="text-[11px] text-slate-200 line-clamp-2 leading-relaxed bg-blue-950/20 p-2 rounded-lg border border-blue-900/30">
+              <div class="text-[11px] text-slate-300 font-semibold mb-1 flex items-center gap-1">📋 주요 자격요건 및 직무개요:</div>
+              <p class="text-[11px] text-slate-300 leading-relaxed bg-slate-950/80 p-3 rounded-xl border border-slate-800/90 break-words whitespace-pre-wrap">
+                ${item.requirements}
+              </p>
+            </div>
+
+            <!-- Pitch & Moat (NO LINE CLAMP: FULL TEXT DISPLAY) -->
+            <div class="mb-4 text-xs">
+              <div class="text-[11px] text-emerald-400 font-semibold mb-1 flex items-center gap-1">🎯 나만의 맞춤 어필 포인트 (Moat):</div>
+              <p class="text-[11px] text-emerald-100 leading-relaxed bg-emerald-950/25 p-3 rounded-xl border border-emerald-800/40 break-words whitespace-pre-wrap">
                 ${item.pitch_moat}
               </p>
             </div>
           </div>
 
-          <!-- Bottom Action -->
-          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
-            <div class="text-[10px] text-slate-400 truncate max-w-[170px]" title="${item.apply_info}">
-              ✉️ ${item.apply_info}
+          <!-- Bottom Action (Mobile Optimized, Full Apply Info) -->
+          <div class="pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="text-[11px] text-slate-400 leading-normal break-words">
+              ✉️ <span class="text-slate-300 font-medium">${item.apply_info}</span>
             </div>
             <a 
               href="${item.url}" 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-1 transition shadow-sm active:scale-95 shrink-0"
+              class="w-full sm:w-auto text-center px-4 py-2.5 text-xs font-bold rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-700/30 shrink-0"
             >
-              <span>공고 원문</span>
+              <span>공고 원문 바로가기</span>
               <span>↗</span>
             </a>
           </div>
@@ -879,13 +911,13 @@
           <td class="py-3 px-3 font-semibold text-[11px] whitespace-nowrap">${getStatusBadge(item.status)}</td>
           <td class="py-3 px-3 whitespace-nowrap">${getDDayBadge(item.d_day, item.status)}</td>
           <td class="py-3 px-3 font-bold text-slate-200 whitespace-nowrap">${item.ann_no}</td>
-          <td class="py-3 px-3 font-semibold text-white max-w-xs truncate" title="${item.role}">${item.role}</td>
+          <td class="py-3 px-3 font-semibold text-white min-w-[200px] break-words">${item.role}</td>
           <td class="py-3 px-3 font-bold text-emerald-300 whitespace-nowrap">${item.grade}</td>
-          <td class="py-3 px-3 text-slate-200 whitespace-nowrap">${item.company}</td>
+          <td class="py-3 px-3 text-slate-200 min-w-[150px] break-words">${item.company}</td>
           <td class="py-3 px-3 text-slate-400 whitespace-nowrap">${item.location}</td>
           <td class="py-3 px-3 text-slate-300 font-medium whitespace-nowrap">${item.close_date}</td>
           <td class="py-3 px-3 text-center whitespace-nowrap">
-            <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 text-[11px] font-bold rounded bg-emerald-600 hover:bg-emerald-500 text-white transition inline-flex items-center gap-1">
+            <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 text-[11px] font-bold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition inline-flex items-center gap-1">
               열기 ↗
             </a>
           </td>
